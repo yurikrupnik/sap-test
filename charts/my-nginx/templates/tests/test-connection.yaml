@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "my-nginx.fullname" . }}-test-connection"
+  labels:
+    {{- include "my-nginx.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "my-nginx.fullname" . }}:{{ .Values.service.port }}']
+    - name: wrk
+      image: yurikrupnik/wrk-m1
+      command: [ 'wrk' ]
+      args: [ "-t12", "-c400", "-d30s", {{ include "my-nginx.fullname" . }}:{{ .Values.service.port }}/hello' ]
+  restartPolicy: Never

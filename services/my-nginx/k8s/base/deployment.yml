@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buster-fat
+  labels:
+    app: buster-fat
+spec:
+  replicas: 4
+  template:
+    metadata:
+      name: buster-fat
+      labels:
+        app: buster-fat
+    spec:
+      containers:
+        - name: buster-fat
+          image: yurikrupnik/buster-fat:0.0.2
+          imagePullPolicy: IfNotPresent
+
+#          env:
+#            - name: PORT
+#              value: "1234"
+
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: buster-fat
