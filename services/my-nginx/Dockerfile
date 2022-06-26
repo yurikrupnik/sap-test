@@ -1,4 +1,4 @@
-FROM openresty/openresty:1.19.9.1-0-buster-fat AS builder
+FROM openresty/openresty:1.21.4.1-0-buster-fat AS builder
 
 # Todo via config maps volumes - no need to rebuild image if changing config.
 # docker run --name nginx-container --rm --net=host   -v /home/core/nginx/nginx.conf:/etc/nginx/nginx.conf nginx
